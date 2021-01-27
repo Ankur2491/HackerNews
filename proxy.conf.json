@@ -1,0 +1,11 @@
+{
+    "/google/*": {
+        "target": "https://www.google.com/",
+        "secure": false,
+        "logLevel": "info",
+        "pathRewrite": {
+            "^/google": ""
+        },
+        "changeOrigin": true
+    }
+}

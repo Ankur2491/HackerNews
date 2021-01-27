@@ -21,12 +21,16 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/_headers",
+              "src/_redirects"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "semantic/dist/semantic.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["semantic/dist/semantic.min.js"]
           },
           "configurations": {
             "production": {
@@ -62,7 +66,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "HackNews:build"
+            "browserTarget": "HackNews:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -119,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "HackNews"
+    }
+  },
+  "defaultProject": "HackNews",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,0 +1,19 @@
+<div *ngIf="commentData && commentData.text" class="comment">
+    <a class="avatar">
+        <img src="assets/images/user.png">
+    </a>
+    <div class="content">
+        <a class="author">{{commentData.by}}</a>
+        <div class="metadata">
+            <span class="date">{{commentData.time*1000 | date:'medium'}}</span>
+        </div>
+        <div class="text">
+            <p [innerHTML]="commentData.text"></p>
+        </div>
+    </div>
+    <div *ngIf="commentData.kids && commentData.kids.length>0" class="comments">
+        <div *ngFor="let commentId of commentData.kids">
+            <app-comment [id]="commentId"></app-comment>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div *ngIf="masterData.length>0" class="modal-header"><h3>Comments</h3>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <!-- <div *ngFor="let comm of masterData">
+    <div class="comment">
+      <div class="content">
+        <a class="author">{{comm.author}}</a>
+        <div class="metadata">
+          <span class="date">{{comm.time*1000 | date:'medium'}}</span>
+        </div>
+        <div class="text">
+          <span [innerHTML]="comm.text"></span>
+        </div>
+      </div>
+      <div class="comments">
+        <div class="comment">
+          <div class="content">
+            <a class="author">me</a>
+            <div class="metadata">
+              <span class="date">{{comm.time*1000 | date:'medium'}}</span>
+            </div>
+            <div class="text">
+              hello
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="ui comments">
+    <!-- <h3 class="ui dividing header">Comments</h3> -->
+    <div *ngFor="let data of masterData" class="comment">
+      <a class="avatar">
+        <img src="assets/images/user.png">
+      </a>
+      <div class="content">
+        <a class="author">{{data.by}}</a>
+        <div class="metadata">
+          <span class="date">{{data.time*1000 | date:'medium'}}</span>
+        </div>
+        <div class="text">
+          <p [innerHTML]="data.text"></p>
+        </div>
+      </div>
+      <div *ngIf="data.kids && data.kids.length>0" class="comments">
+        <div *ngFor="let commentId of data.kids">
+        <app-comment [id]="commentId"></app-comment>
+      </div>
+        <!-- <div class="comment">
+          <a class="avatar">
+            <img src="assets/images/user.png">
+          </a>
+          <div class="content">
+            <a class="author">Jenny Hess</a>
+            <div class="metadata">
+              <span class="date">Just now</span>
+            </div>
+            <div class="text">
+              Elliot you are always so right :)
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

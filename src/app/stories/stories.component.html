@@ -1,0 +1,48 @@
+<!-- <div class="card-body">
+    <div *ngFor="let item of pageOfItems">{{item.content | json }}</div>
+</div> -->
+<div class="container-fluid">
+  <ngx-spinner></ngx-spinner>
+  <div class="row">
+    <div class="col-md-3" *ngFor="let item of items | paginate: {itemsPerPage:12, currentPage: currentPage}">
+      <div class="ui card">
+        <div class="image">
+          <img src="assets/images/logo.jpeg">
+        </div>
+        <div class="content">
+          <a class="header" [href]="item.content.url" target="_blank">{{item.content.title}}</a>
+          <div class="meta">
+            <span class="date">by: {{item.content.by}}</span><br />
+            <span class="date">published:{{item.content.time*1000 | date:'medium'}}</span>
+          </div>
+          <!-- <div class="description" *ngIf="item.content.kids">
+            {{item.content.kids.length}}comment(s)
+          </div>
+        </div> -->
+        <div *ngIf="item.content.kids" class="extra content">
+          <a (click)="clicked(item.content.kids)">
+            <i class="user icon"></i>
+            {{item.content.kids.length}} comment(s)
+          </a>
+        </div>
+      </div>
+
+
+      <!-- <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="assets/images/logo.jpeg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{item.content.title}}</h5>
+          <small style="color: grey;">by: {{item.content.by}}</small><br />
+          <small style="color: grey;">published:{{item.content.time*1000 | date:'medium'}}</small>
+          <a [href]="item.content.url" class="btn btn-link btn-sm" target="_blank">View Original Article</a> -->
+
+      <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+  </div>
+</div>
+<hr/>
+<!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvXzvEJ45HXVE5uBV44X-NEPvgMbBqIResBcWdxjmcMZYDdnnF9fthBV9OLzU"> -->
+<div style="text-align:justify;">
+  <pagination-controls (pageChange)="initRandomPageData($event)"></pagination-controls>
+</div>
