@@ -15,8 +15,9 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this.router.events.subscribe(event=>{
       if (event instanceof NavigationEnd) {
-        const eventUrl = /(?<=\/).+/.exec(event.urlAfterRedirects);
-        const currentRoute = (eventUrl || []).join('');
+        // const eventUrl = /(?<=\/).+/.exec(event.urlAfterRedirects);
+        // const currentRoute = (eventUrl || []).join('');
+        const currentRoute = event.urlAfterRedirects;
         if(currentRoute.split('/')[1]=="new"){
           this.newClass = "nav-item active";
           this.bestClass = "nav-item";
