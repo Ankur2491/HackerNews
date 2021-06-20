@@ -6,9 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../modal/modal.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable, of } from 'rxjs';
-import Mercury from '@postlight/mercury-parser';
 import { HttpClient } from '@angular/common/http';
-import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 // let $ = require('jquery')
 @Component({
@@ -34,7 +32,6 @@ export class StoriesComponent implements OnInit {
       this.items = [];
       this.service.getItems(data.type).subscribe((items: Array<any>) => {
         this.allData = items;
-        console.log(items);
         this.items = Array(items.length).fill(0).map((x, i) => ({ id: (i + 1), content: `` }));
         this.initTenData();
       })

@@ -7,12 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "preinstall": "npx npm-force-resolutions",
-    "postinstall": "ngcc"
-    },
-  "resolutions": {
-    "graceful-fs": "^4.2.4"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -44,7 +39,6 @@
     "ngx-spinner": "^10.0.1",
     "@postlight/mercury-parser": "^2.2.0",
     "rxjs": "~6.6.0",
-    "semantic-ui": "^2.4.2",
     "typescript": "~4.0.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
