@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HackNewsService } from '../hack-news.service';
 
-import * as $ from 'jquery';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from '../modal/modal.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { catchError, switchMap, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import Mercury from '@postlight/mercury-parser';
+import { HttpClient } from '@angular/common/http';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+
 // let $ = require('jquery')
 @Component({
   selector: 'app-stories',
@@ -21,7 +23,7 @@ export class StoriesComponent implements OnInit {
   type: string;
   show = false;
   currentPage: number = 1;
-  constructor(private route: ActivatedRoute, private service: HackNewsService, private modalService: NgbModal,private spinner: NgxSpinnerService) { }
+  constructor(private route: ActivatedRoute, private service: HackNewsService, private modalService: NgbModal,private spinner: NgxSpinnerService, private http: HttpClient) { }
   ngOnInit() {
     // this.items = Array(150).fill(0).map((x, i) => ({ id: (i + 1), name: `Item ${i + 1}` }));
     this.route.params.subscribe(data => {
@@ -38,7 +40,7 @@ export class StoriesComponent implements OnInit {
       })
     })
     // let story = {'leadImageUrl':''};
-    // this.service.searchImage("IKEA Buys 11,000 Acres of U.S. Forest to Keep It from Being Developed").subscribe(data=>{
+    // this.service.searchImage("I wrote a children's book / illustrated guide to Apache Kafka").subscribe(data=>{
     //   console.log(data);
     // })
     
@@ -60,6 +62,14 @@ export class StoriesComponent implements OnInit {
   async initTenData() {
     for (let i = 0; i < 12; i++) {
       this.items[i].content = await this.service.getItem(this.allData[i]);
+      this.http.post('https://hnews-image.herokuapp.com/image',{'url': this.items[i].content.url}).subscribe(data=>{
+        if(data['lead_image_url']){
+          this.items[i].content.image = data['lead_image_url'];
+        }
+        else{
+          this.items[i].content.image = 'assets/images/logo.jpeg';
+        }
+      })
     }
     // this.spinner.hide();
   }
@@ -68,6 +78,14 @@ export class StoriesComponent implements OnInit {
     this.currentPage = $event;
     for (let i = 12*($event - 1); i < 12*$event; i++) {
       this.items[i].content = await this.service.getItem(this.allData[i]);
+      this.http.post('https://hnews-image.herokuapp.com/image',{'url': this.items[i].content.url}).subscribe(data=>{
+        if(data['lead_image_url']){
+          this.items[i].content.image = data['lead_image_url'];
+        }
+        else{
+          this.items[i].content.image = 'assets/images/logo.jpeg';
+        }
+      })
     }
     // this.spinner.hide();
   }
