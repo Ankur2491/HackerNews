@@ -16,7 +16,7 @@ export class CommentComponent implements OnInit {
     this.fetchCommentById(this.id);
   }
 
-  async fetchCommentById(id){
+  async fetchCommentById(id) {
     this.commentData = await this.service.getItem(id);
     // console.log(this.commentData);
   }

@@ -1,17 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { HackNewsService } from '../hack-news.service';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.css']
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent implements OnInit, OnDestroy {
   @Input() src: Array<any>;
   masterData = [];
+  heading: string;
+  subscription: Subscription;
   constructor(public activeModal: NgbActiveModal, private service: HackNewsService) { }
 
   ngOnInit(): void {
+    this.service.currentHeading.subscribe(heading => this.heading = heading);
     for (let cId of this.src) {
       this.fetchComments(cId);
     }
@@ -28,10 +32,14 @@ export class ModalComponent implements OnInit {
   //     }
   //   }
   // }
-  async fetchComments(cId){
+  async fetchComments(cId) {
     let comment = await this.service.getItem(cId);
     this.masterData.push(comment);
     console.log(this.masterData);
 
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
