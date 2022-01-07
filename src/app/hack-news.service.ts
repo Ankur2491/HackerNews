@@ -99,5 +99,12 @@ export class HackNewsService {
   changeHeading(heading: string) {
     this.commentFor.next(heading);
   }
+
+  search(query: string): Observable<any> {
+    return this.http.get(`http://hn.algolia.com/api/v1/search_by_date?query=${query}&tags=story&hitsPerPage=20`);
+  }
+  searchByPageIndex(query: string, index): Observable<any> {
+    return this.http.get(`http://hn.algolia.com/api/v1/search_by_date?query=${query}&tags=story&hitsPerPage=20&page=${index}`);
+  }
 }
 
