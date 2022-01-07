@@ -101,10 +101,10 @@ export class HackNewsService {
   }
 
   search(query: string): Observable<any> {
-    return this.http.get(`http://hn.algolia.com/api/v1/search_by_date?query=${query}&tags=story&hitsPerPage=20`);
+    return this.http.get(`https://hnews-image.herokuapp.com/search/${query}`);
   }
   searchByPageIndex(query: string, index): Observable<any> {
-    return this.http.get(`http://hn.algolia.com/api/v1/search_by_date?query=${query}&tags=story&hitsPerPage=20&page=${index}`);
+    return this.http.get(`https://hnews-image.herokuapp.com/searchByPageIndex/${query}/${index}`);
   }
 }
 
