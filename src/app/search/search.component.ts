@@ -10,6 +10,7 @@ export class SearchComponent implements OnInit {
   searchQuery = "";
   searchPref = "pop";
   results = [];
+  prefPlaceholder = "Search Preference";
   currentPage: number = 1;
   totalCount;
   constructor(private service: HackNewsService) { }
@@ -40,9 +41,11 @@ export class SearchComponent implements OnInit {
   setPreference(param) {
     if (param == "popularity") {
       this.searchPref = "pop";
+      this.prefPlaceholder = "by Popularity"
     }
     else {
       this.searchPref = "date";
+      this.prefPlaceholder = "by Date"
     }
   }
 }
