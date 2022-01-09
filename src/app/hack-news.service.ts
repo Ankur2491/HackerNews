@@ -100,11 +100,11 @@ export class HackNewsService {
     this.commentFor.next(heading);
   }
 
-  search(query: string): Observable<any> {
-    return this.http.get(`https://hnews-image.herokuapp.com/search/${query}`);
+  search(query: string, pref: string): Observable<any> {
+    return this.http.get(`https://hnews-image.herokuapp.com/search/${query}/${pref}`);
   }
-  searchByPageIndex(query: string, index): Observable<any> {
-    return this.http.get(`https://hnews-image.herokuapp.com/searchByPageIndex/${query}/${index}`);
+  searchByPageIndex(query: string, index, pref: string): Observable<any> {
+    return this.http.get(`https://hnews-image.herokuapp.com/searchByPageIndex/${query}/${index}/${pref}`);
   }
 }
 

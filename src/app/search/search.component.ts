@@ -8,6 +8,7 @@ import { HackNewsService } from '../hack-news.service';
 })
 export class SearchComponent implements OnInit {
   searchQuery = "";
+  searchPref = "pop";
   results = [];
   currentPage: number = 1;
   totalCount;
@@ -16,7 +17,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit(form) {
-    this.service.search(form.value.searchQuery).subscribe(data => {
+    this.service.search(form.value.searchQuery, this.searchPref).subscribe(data => {
       this.searchQuery = form.value.searchQuery;
       this.results = data.hits;
       let totalHits = data.nbHits;
@@ -32,8 +33,16 @@ export class SearchComponent implements OnInit {
   async getPaginatedData($event) {
     this.currentPage = $event;
     window.scroll(0, 0);
-    this.service.searchByPageIndex(this.searchQuery, $event).subscribe(data => {
+    this.service.searchByPageIndex(this.searchQuery, $event, this.searchPref).subscribe(data => {
       this.results = data.hits;
     })
+  }
+  setPreference(param) {
+    if (param == "popularity") {
+      this.searchPref = "pop";
+    }
+    else {
+      this.searchPref = "date";
+    }
   }
 }
