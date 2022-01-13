@@ -2,3 +2,6 @@
     position: relative;
     margin-top: 25px;
 }
+a{
+    cursor: pointer;
+}

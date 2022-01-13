@@ -1,0 +1,5 @@
+.modal-body{
+    overflow-y: initial;
+    height: 80vh;
+    overflow-y: auto;
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DialogComponent } from '../dialog/dialog.component';
 import { HackNewsService } from '../hack-news.service';
 
 @Component({
@@ -13,7 +15,7 @@ export class SearchComponent implements OnInit {
   prefPlaceholder = "Search Preference";
   currentPage: number = 1;
   totalCount;
-  constructor(private service: HackNewsService) { }
+  constructor(private service: HackNewsService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
@@ -56,5 +58,16 @@ export class SearchComponent implements OnInit {
       this.searchPref = "date";
       this.prefPlaceholder = "by Date"
     }
+  }
+  openDialog(url: string) {
+    const modalRef = this.modalService.open(DialogComponent,{ windowClass : "myCustomModalClass"});
+    modalRef.componentInstance.url = url;
+    modalRef.result.then((result) => {
+      console.log(result);
+      console.log('closed');
+    }).catch((result) => {
+      console.log(result);
+      console.log('cancelling');
+    });
   }
 }

@@ -14,6 +14,7 @@ import { SafePipe } from './safe.pipe';
 import { CommentComponent } from './comment/comment.component';
 import { SearchComponent } from './search/search.component';
 import { FormsModule } from '@angular/forms';
+import { DialogComponent } from './dialog/dialog.component';
 const config = {
   apiKey: 'AIzaSyAcStQ9tpyLbeHEY9PpLMBmsKww0WHiYGo',
   authDomain: 'hnews-829bf.firebaseapp.com',
@@ -29,7 +30,8 @@ const config = {
     ModalComponent,
     SafePipe,
     CommentComponent,
-    SearchComponent
+    SearchComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,6 @@ const config = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [HackNewsService],
   bootstrap: [AppComponent],
-  entryComponents: [ModalComponent]
+  entryComponents: [ModalComponent, DialogComponent]
 })
 export class AppModule { }
