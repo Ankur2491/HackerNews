@@ -17,10 +17,19 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  enrichData(source) {
+    this.results = [];
+    for (let item of source) {
+      if (!item["url"]) {
+        item["url"] = `https://news.ycombinator.com/item?id=${item['objectID']}`
+      }
+      this.results.push(item);
+    }
+  }
   onSubmit(form) {
     this.service.search(form.value.searchQuery, this.searchPref).subscribe(data => {
       this.searchQuery = form.value.searchQuery;
-      this.results = data.hits;
+      this.enrichData(data.hits);
       let totalHits = data.nbHits;
       if (totalHits > 1000) {
         this.totalCount = 980;
@@ -35,7 +44,7 @@ export class SearchComponent implements OnInit {
     this.currentPage = $event;
     window.scroll(0, 0);
     this.service.searchByPageIndex(this.searchQuery, $event, this.searchPref).subscribe(data => {
-      this.results = data.hits;
+      this.enrichData(data.hits);
     })
   }
   setPreference(param) {
